@@ -1,0 +1,24 @@
+version: "3"
+services:
+  clickhouse:
+    image: yandex/clickhouse-server
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    environment:
+      - CLICKHOUSE_CONFIG=/etc/clickhouse-server/config.xml
+    volumes:
+      - ./clickhouse/config.xml:/etc/clickhouse-server/config.xml
+
+  clickhouse-keeper:
+    image: yandex/clickhouse-keeper
+    # Configuración de ClickHouse Keeper según tus necesidades
+ 
+
+  microservice:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - clickhouse
